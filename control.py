@@ -54,7 +54,39 @@ def flashred(number)
         sleep(1)
         GPIO.output(3, GPIO.LOW)
         sleep(0.5)
- 
+        
+def flashall (number)
+    for n in range (0, number)
+        GPIO.output(3, GPIO.HIGH)
+        GPIO.output(5, GPIO.HIGH)
+        GPIO.output(11, GPIO.HIGH)
+        GPIO.output(15, GPIO.HIGH)
+        GPIO.output(21, GPIO.HIGH)
+        GPIO.output(29, GPIO.HIGH)
+        GPIO.output(33, GPIO.HIGH)
+        GPIO.output(37, GPIO.HIGH)
+        GPIO.output(10, GPIO.HIGH)
+        GPIO.output(16, GPIO.HIGH)
+        GPIO.output(22, GPIO.HIGH)
+        GPIO.output(32, GPIO.HIGH)
+        GPIO.output(36, GPIO.HIGH)
+        sleep(0.5)
+        GPIO.output(3, GPIO.LOW)
+        GPIO.output(5, GPIO.LOW)
+        GPIO.output(11, GPIO.LOW)
+        GPIO.output(15, GPIO.LOW)
+        GPIO.output(21, GPIO.LOW)
+        GPIO.output(29, GPIO.LOW)
+        GPIO.output(33, GPIO.LOW)
+        GPIO.output(37, GPIO.LOW)
+        GPIO.output(10, GPIO.LOW)
+        GPIO.output(16, GPIO.LOW)
+        GPIO.output(22, GPIO.LOW)
+        GPIO.output(32, GPIO.LOW)
+        GPIO.output(36, GPIO.LOW)
+        sleep(0.5)
+
+    
 def buttonQuestion(channel):  
 
     #set LED based on button press
@@ -169,88 +201,88 @@ else
     questionlist = open('file.txt').read().splitlines()
 
 #wait for start button push
+while:
+    #show leaderboard?
+    #wait for button press
+    GPIO.wait_for_edge(40, GPIO.RISING)
 
-GPIO.wait_for_edge(40, GPIO.RISING)
+    #on start button push pause 3 second and take picture
 
-#on start button push pause 3 second and take picture
+    print ('smile, camera will take picture in 3 seconds')
+    camera.start_preview()
+    sleep(1)
+    camera.capture('image.jpg')
+    camera.stop_preview()
 
-print ('smile, camera will take picture in 3 seconds')
-camera.start_preview()
-sleep(1)
-camera.capture('image.jpg')
-camera.stop_preview()
+    #flash lights 3-2-1-go (start timer)
 
-#flash lights 3-2-1-go (start timer)
+    print('3')
+    GPIO.output(15, GPIO.HIGH)
+    GPIO.output(11, GPIO.HIGH)
+    GPIO.output(5, GPIO.HIGH)
+    sleep(1)
+    print ('2')
+    GPIO.output(15, GPIO.LOW)
+    GPIO.output(11, GPIO.HIGH)
+    GPIO.output(5, GPIO.HIGH)
+    sleep(1)
+    print('1')
+    GPIO.output(15, GPIO.LOW)
+    GPIO.output(11, GPIO.LOW)
+    GPIO.output(5, GPIO.HIGH)
+    sleep(1)
+    print('GO!')
+    GPIO.output(15, GPIO.LOW)
+    GPIO.output(11, GPIO.LOW)
+    GPIO.output(5, GPIO.LOW)
 
-print('3')
-GPIO.output(15, GPIO.HIGH)
-GPIO.output(11, GPIO.HIGH)
-GPIO.output(5, GPIO.HIGH)
-sleep(1)
-print ('2')
-GPIO.output(15, GPIO.LOW)
-GPIO.output(11, GPIO.HIGH)
-GPIO.output(5, GPIO.HIGH)
-sleep(1)
-print('1')
-GPIO.output(15, GPIO.LOW)
-GPIO.output(11, GPIO.LOW)
-GPIO.output(5, GPIO.HIGH)
-sleep(1)
-print('GO!')
-GPIO.output(15, GPIO.LOW)
-GPIO.output(11, GPIO.LOW)
-GPIO.output(5, GPIO.LOW)
-
-#start timer
-start = time.time()
+    #start timer
+    start = time.time()
     
-#wait for button press    
+    #wait for button press    
 
-while complete > 6:
+    while complete > 6:
  
-    GPIO.add_event_detect(7, GPIO.FALLING, callback=buttonQuestion, bouncetime=300)  
-    GPIO.add_event_detect(13, GPIO.FALLING, callback=buttonQuestion, bouncetime=300)  
-    GPIO.add_event_detect(19, GPIO.FALLING, callback=buttonQuestion, bouncetime=300)  
-    GPIO.add_event_detect(23, GPIO.FALLING, callback=buttonQuestion, bouncetime=300)  
-    GPIO.add_event_detect(31, GPIO.FALLING, callback=buttonQuestion, bouncetime=300)  
-    GPIO.add_event_detect(35, GPIO.FALLING, callback=buttonQuestion, bouncetime=300) 
+        GPIO.add_event_detect(7, GPIO.FALLING, callback=buttonQuestion, bouncetime=300)  
+        GPIO.add_event_detect(13, GPIO.FALLING, callback=buttonQuestion, bouncetime=300)  
+        GPIO.add_event_detect(19, GPIO.FALLING, callback=buttonQuestion, bouncetime=300)  
+        GPIO.add_event_detect(23, GPIO.FALLING, callback=buttonQuestion, bouncetime=300)  
+        GPIO.add_event_detect(31, GPIO.FALLING, callback=buttonQuestion, bouncetime=300)  
+        GPIO.add_event_detect(35, GPIO.FALLING, callback=buttonQuestion, bouncetime=300) 
 
-    GPIO.add_event_detect(8, GPIO.FALLING, callback=buttonAnswer, bouncetime=300)  
-    GPIO.add_event_detect(12, GPIO.FALLING, callback=buttonAnswer, bouncetime=300)  
-    GPIO.add_event_detect(18, GPIO.FALLING, callback=buttonAnswer, bouncetime=300)  
-    GPIO.add_event_detect(24, GPIO.FALLING, callback=buttonAnswer, bouncetime=300)  
-    GPIO.add_event_detect(32, GPIO.FALLING, callback=buttonAnswer, bouncetime=300)  
-    GPIO.add_event_detect(38, GPIO.FALLING, callback=buttonAnswer, bouncetime=300)  
+        GPIO.add_event_detect(8, GPIO.FALLING, callback=buttonAnswer, bouncetime=300)  
+        GPIO.add_event_detect(12, GPIO.FALLING, callback=buttonAnswer, bouncetime=300)  
+        GPIO.add_event_detect(18, GPIO.FALLING, callback=buttonAnswer, bouncetime=300)  
+        GPIO.add_event_detect(24, GPIO.FALLING, callback=buttonAnswer, bouncetime=300)  
+        GPIO.add_event_detect(32, GPIO.FALLING, callback=buttonAnswer, bouncetime=300)  
+        GPIO.add_event_detect(38, GPIO.FALLING, callback=buttonAnswer, bouncetime=300)  
 
-    print('Score: ' & score & /n & 'Complete: ' & complete)
+        print('Score: ' & score & /n & 'Complete: ' & complete)
 
-#when all matched (record time with photo and score)
+    #when all matched (record time with photo and score)
 
-end = time.time()
-quiztime = end - start
+    #end time
+    end = time.time()
+    #calculate total time
+    quiztime = end - start
 
-#flash green lights in celebration
+    timescorename = score & quiztime & '.jpg'
+
+    os.rename (image.jpg, timescorename)
 
 
+    #flash green lights in celebration
+    flashall(3)
+    print('Well Done!' & /n & 'Your time was: '  & quiztime & /n & 'Your Score was: ' & Score
 
-#reset variables
-question = ""
-answer = ""
-greenAns = ""
-greenQue = ""
+
+    #reset variables
+    question = ""
+    answer = ""
+    greenAns = ""
+    greenQue = ""
 
 except KeyboardInterrupt:
     
     GPIO.cleanup()       # clean up GPIO on CTRL+C exit  
     GPIO.cleanup()           # clean up GPIO on normal exit 
-
-
-    
-
-
-
-
-
-
-
