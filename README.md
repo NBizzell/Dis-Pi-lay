@@ -1,4 +1,4 @@
-# DisP(i)lay
+# Dis&pilay
 
 An interactive classroomm display. 
 
